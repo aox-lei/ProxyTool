@@ -2,13 +2,13 @@
 # !/usr/bin/env python
 """
 -------------------------------------------------
-   File Name：     ProxyManager.py  
-   Description :  
+   File Name：     ProxyManager.py
+   Description :
    Author :       JHao
    date：          2016/12/3
 -------------------------------------------------
    Change Activity:
-                   2016/12/3: 
+                   2016/12/3:
 -------------------------------------------------
 """
 __author__ = 'JHao'
@@ -49,13 +49,14 @@ class ProxyManager(object):
             for proxy in proxy_set:
                 self.db.put(proxy)
 
-    def get(self):
+    def get(self, num=1):
         """
         return a useful proxy
         :return:
         """
         self.db.changeTable(self.useful_proxy_queue)
-        return self.db.get()
+
+        return self.db.get(num=num)
         # return self.db.pop()
 
     def delete(self, proxy):
@@ -81,6 +82,7 @@ class ProxyManager(object):
         self.db.changeTable(self.useful_proxy_queue)
         total_useful_queue = self.db.get_status()
         return {'raw_proxy': total_raw_proxy, 'useful_proxy': total_useful_queue}
+
 
 if __name__ == '__main__':
     pp = ProxyManager()

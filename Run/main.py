@@ -1,13 +1,13 @@
 # -*- coding: utf-8 -*-
 """
 -------------------------------------------------
-   File Name：     main.py  
+   File Name：     main.py
    Description :  运行主函数
    Author :       JHao
    date：          2017/4/1
 -------------------------------------------------
    Change Activity:
-                   2017/4/1: 
+                   2017/4/1:
 -------------------------------------------------
 """
 __author__ = 'JHao'
@@ -34,6 +34,7 @@ def run():
         p.start()
     for p in p_list:
         p.join()
+
 
 if __name__ == '__main__':
     run()

@@ -11,6 +11,7 @@ import random
 import redis
 import sys
 
+
 class RedisClient(object):
     """
     Reids client
@@ -27,21 +28,25 @@ class RedisClient(object):
         self.name = name
         self.__conn = redis.Redis(host=host, port=port, db=0)
 
-    def get(self):
+    def get(self, num=1):
         """
         get random result
         :return:
         """
-        key = self.__conn.hgetall(name=self.name)
-        # return random.choice(key.keys()) if key else None
-        # key.keys()在python3中返回dict_keys，不支持index，不能直接使用random.choice
-        # 另：python3中，redis返回为bytes,需要解码
-        rkey = random.choice(list(key.keys())) if key else None
-        if isinstance(rkey, bytes):
-            return rkey.decode('utf-8')
+        keys = self.__conn.hgetall(name=self.name)
+        if num == 1:
+            key = list(keys.keys())[0]
+
+            if isinstance(key, bytes):
+                return key.decode('utf-8')
+            else:
+                return key
         else:
-            return rkey
-        # return self.__conn.srandmember(name=self.name)
+            keys = list(keys.keys())[0:num]
+            if isinstance(keys[0], bytes):
+                for _k, _v in enumerate(keys):
+                    keys[_k] = _v.decode('utf-8')
+            return keys
 
     def put(self, key):
         """

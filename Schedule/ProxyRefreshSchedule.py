@@ -13,18 +13,19 @@
                    2017/04/26: raw_proxy_queue验证通过但useful_proxy_queue中已经存在的代理不在放入
 -------------------------------------------------
 """
-
 import sys
 import time
 import logging
 from threading import Thread
 from apscheduler.schedulers.blocking import BlockingScheduler
+from multiprocessing import Process
 
 sys.path.append('../')
 
 from Util.utilFunction import validUsefulProxy
 from Manager.ProxyManager import ProxyManager
 from Util.LogHandler import LogHandler
+
 
 __author__ = 'JHao'
 
@@ -47,6 +48,7 @@ class ProxyRefreshSchedule(ProxyManager):
         """
         self.db.changeTable(self.raw_proxy_queue)
         raw_proxy = self.db.pop()
+
         self.log.info('%s start validProxy_a' % time.ctime())
         # 计算剩余代理，用来减少重复计算
         remaining_proxies = self.db.getAll()
@@ -72,7 +74,9 @@ def main(process_num=30):
     p = ProxyRefreshSchedule()
 
     # 获取新代理
-    p.refresh()
+    # p.refresh()
+    process = Process(target=p.refresh)
+    process.start()
 
     # 检验新代理
     pl = []
@@ -88,7 +92,6 @@ def main(process_num=30):
 
 
 def run():
-    # main()
     sched = BlockingScheduler()
     sched.add_job(main, 'interval', minutes=5)
     sched.start()

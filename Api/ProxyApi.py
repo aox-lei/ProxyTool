@@ -37,16 +37,17 @@ def index():
     return jsonify(api_list)
 
 
-@app.route('/get/')
-def get():
-    proxy = ProxyManager().get()
-    return proxy
+@app.route('/get/<int:num>')
+def get(num):
+    proxy = ProxyManager().get(num)
+    if num == 1:
+        proxy = [proxy]
+    return jsonify(proxy) if proxy else jsonify([])
 
 
 @app.route('/refresh/')
 def refresh():
     # TODO refresh会有守护程序定时执行，由api直接调用性能较差，暂不使用
-    # ProxyManager().refresh()
     pass
     return 'success'
 
@@ -71,7 +72,8 @@ def get_status():
 
 
 def run():
-    app.run(host='0.0.0.0', port=5000)
+    app.run(host='0.0.0.0', port=5000, debug=True)
+
 
 if __name__ == '__main__':
     run()

@@ -73,6 +73,7 @@ class DbClient(object):
                                                           port=self.config.db_port)
 
     def get(self, **kwargs):
+
         return self.client.get(**kwargs)
 
     def put(self, key, **kwargs):
