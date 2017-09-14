@@ -42,7 +42,8 @@ def get(num):
     proxy = ProxyManager().get(num)
     if num == 1:
         proxy = [proxy]
-    return jsonify(proxy) if proxy else jsonify([])
+
+    return jsonify(proxy) if len(proxy) > 1 else jsonify([])
 
 
 @app.route('/refresh/')

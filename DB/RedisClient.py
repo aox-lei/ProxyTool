@@ -34,6 +34,9 @@ class RedisClient(object):
         :return:
         """
         keys = self.__conn.hgetall(name=self.name)
+        if not keys:
+            return None
+
         if num == 1:
             key = list(keys.keys())[0]
 
