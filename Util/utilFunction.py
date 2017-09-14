@@ -79,8 +79,8 @@ def validUsefulProxy(proxy):
         # 超过40秒的代理就不要了
         r = requests.get('https://www.baidu.com', proxies=proxies, timeout=40, verify=False)
         if r.status_code == 200:
-            logger.debug('%s is ok' % proxy)
+            # logger.debug('%s is ok' % proxy)
             return True
-    except Exception as e:
-        logger.info(e)
+    except:
+        # logger.info(e)
         return False
