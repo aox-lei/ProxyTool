@@ -1,3 +1,5 @@
-from app.crawl.xici import xici
+from app.util.config import config
 
-xici().run()
+config().load()
+
+print(config().mongo_dsn)

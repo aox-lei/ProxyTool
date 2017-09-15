@@ -1,40 +1,43 @@
 import sys
 from bs4 import BeautifulSoup
-from app.util.requests_help import requests_help
+from app.util.function import now
 from app.crawl.base import base
 
 
 class xici(base):
-    max_page = 10
+    # 最大抓取页数
+    max_page = 5
     anonymous_proxy_url = 'http://www.xicidaili.com/nn/%d'
     common_proxy_url = 'http://www.xicidaili.com/nt/%d'
     https_proxy_url = 'http://www.xicidaili.com/wn/%d'
     http_proxy_url = 'http://www.xicidaili.com/wt/%d'
 
     def run(self):
-        _anonymous_list = self.crawl_anonymous()
-        pass
+        self._crawl_page(self.anonymous_proxy_url)
+        self._crawl_page(self.common_proxy_url)
+        self._crawl_page(self.https_proxy_url)
+        self._crawl_page(self.http_proxy_url)
 
-    def crawl_anonymous(self):
-        '''
-            抓取高匿代理ip
-        '''
-        for i in range(1, self.max_page):
-            _url = self.anonymous_proxy_url % (i)
-            _body = requests_help().get(_url)
-            _list = self.parse_html(_body)
-            sys.exit()
-
-    def parse_html(self, body):
+    def _parse_html(self, body):
         ''' 从内容中解析ip'''
         soup = BeautifulSoup(body, 'lxml')
-        _country_html = soup.select('#ip_list > tr > td.country > img')
         _ip_html = soup.select('#ip_list > tr > td:nth-of-type(2)')
-        _country = []
-        _ip = []
-        for index, value in enumerate(_country_html):
-            _country.insert(index, value.attrs.get('alt'))
-            _ip.insert(index, _ip_html[index].text)
-            print(_ip)
-            sys.exit()
-        pass
+        _port_html = soup.select('#ip_list > tr > td:nth-of-type(3)')
+        _type_html = soup.select('#ip_list > tr > td:nth-of-type(6)')
+        _is_anonymous_html = soup.select('#ip_list > tr > td:nth-of-type(5)')
+
+        data = []
+        for index, value in enumerate(_ip_html):
+            _data = {
+                'country': 'cn',
+                'ip': _ip_html[index].text.strip(),
+                'port': _port_html[index].text.strip(),
+                'type': _type_html[index].text.strip(),
+                'is_anonymous': 1 if _is_anonymous_html[index].text.strip() == '高匿' else 0,
+                'is_validate': 0,
+                'validate_count': 0,
+                'create_time': now(),
+                'validate_time': now()
+            }
+            data.append(_data)
+        return data
