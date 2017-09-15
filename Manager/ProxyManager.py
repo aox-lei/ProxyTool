@@ -55,9 +55,22 @@ class ProxyManager(object):
         :return:
         """
         self.db.changeTable(self.useful_proxy_queue)
-
         return self.db.get(num=num)
         # return self.db.pop()
+
+    def getByNum(self, num=1):
+        self.db.changeTable(self.useful_proxy_queue)
+        keys = self.getAll()
+        _data = []
+        for i in list(keys):
+            if len(_data) >= num:
+                break
+
+            _value = self.db.getvalue(i)
+
+            if int(_value) > 0:
+                _data.append(i)
+        return _data
 
     def delete(self, proxy):
         """

@@ -49,6 +49,7 @@ class RedisClient(object):
             if isinstance(keys[0], bytes):
                 for _k, _v in enumerate(keys):
                     keys[_k] = _v.decode('utf-8')
+
             return keys
 
     def put(self, key):

@@ -20,6 +20,7 @@ from flask import Flask, jsonify, request
 sys.path.append('../')
 
 from Manager.ProxyManager import ProxyManager
+from DB.DbClient import DbClient
 
 app = Flask(__name__)
 
@@ -39,11 +40,8 @@ def index():
 
 @app.route('/get/<int:num>')
 def get(num):
-    proxy = ProxyManager().get(num)
-    if num == 1:
-        proxy = [proxy]
-
-    return jsonify(proxy) if len(proxy) > 1 else jsonify([])
+    proxyList = ProxyManager().getByNum(num)
+    return jsonify(proxyList) if len(proxyList) >= 1 else jsonify([])
 
 
 @app.route('/refresh/')
@@ -73,7 +71,7 @@ def get_status():
 
 
 def run():
-    app.run(host='0.0.0.0', port=5000, debug=True)
+    app.run(host='0.0.0.0', port=8899, debug=False)
 
 
 if __name__ == '__main__':
