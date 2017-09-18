@@ -1,6 +1,7 @@
 import json
 from flask import Flask
 from app.mongo_model.ip import ip
+from app.util.config import config
 
 app = Flask(__name__)
 
@@ -18,4 +19,7 @@ def get(num):
 
 
 def run():
-    app.run(host='0.0.0.0', port=8899, debug=True)
+    if config().debug == 1:
+        app.run(host='0.0.0.0', port=8899, debug=True)
+    else:
+        app.run(host='0.0.0.0', port=8899)

@@ -25,3 +25,12 @@ class log(object):
             logger.warning(msg)
         elif type == 'info':
             logger.info(msg)
+
+    def debug(self, msg):
+        self.write('debug', msg)
+
+    def info(self, msg):
+        self.write('info', msg)
+
+    def warning(self, msg):
+        self.write('warning', msg)
