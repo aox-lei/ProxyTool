@@ -1,3 +1,4 @@
+# -*- coding:utf-8 -*-
 from pymongo import ASCENDING, DESCENDING
 from app.mongo_model.base import base
 from app.mongo_model import db
