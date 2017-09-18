@@ -1,12 +1,11 @@
 # -*- coding:utf-8 -*-
-import sys
 from bs4 import BeautifulSoup
 from app.crawl.base import base
 from app.util.function import now
 
 
 class ip181(base):
-    max_page = 5
+    max_page = 3
     index_url = 'http://www.ip181.com/'
     list_url = 'http://www.ip181.com/daili/%d.html'
 
@@ -36,6 +35,7 @@ class ip181(base):
                 'is_anonymous': 0 if _is_anonymous_html[index].text.strip() == '透明' else 1,
                 'is_validate': 0,
                 'validate_count': 0,
+                'source': 'ip181',
                 'create_time': now(),
                 'validate_time': now()
             }

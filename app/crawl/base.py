@@ -1,4 +1,4 @@
-import sys
+import time
 from app.mongo_model.ip import ip
 from app.util.requests_help import requests_help
 
@@ -21,7 +21,8 @@ class base(object):
     def _crawl_single(self, url):
         ''' 抓取单个页面'''
         _body = requests_help().get(url)
-        _data = self._parse_html(_body)
+        if _body:
+            _data = self._parse_html(_body)
 
         self._save(_data)
 
@@ -30,3 +31,4 @@ class base(object):
         for i in range(0, self.max_page):
             _url = url % (int(i) + 1)
             self._crawl_single(_url)
+            time.sleep(5)

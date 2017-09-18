@@ -1,4 +1,5 @@
 import os
+import json
 
 
 class config(object):
@@ -23,3 +24,6 @@ class config(object):
 
     def __getattr__(self, key):
         return self.config.get(key)
+
+    def __str__(self):
+        return json.dumps(self.config)
