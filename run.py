@@ -19,7 +19,7 @@ init(env)
 
 if __name__ == '__main__':
     scheduler = BlockingScheduler()
-    scheduler.add_job(crawl().run, 'interval', minutes=1)
+    scheduler.add_job(crawl().run, 'interval', minutes=5)
 
     _process = []
     _process.append(Process(target=validate().run))
