@@ -1,17 +1,20 @@
 import argparse
+
 from multiprocessing import Process
 from apscheduler.schedulers.blocking import BlockingScheduler
 from app.script.crawl import crawl
 from app.script.validate import validate
 from app.script import web
-from app.util.config import config
+from app.util.init import init
+
 
 parse = argparse.ArgumentParser()
 parse.add_argument('-env', help="设置环境", type=str)
 args = parse.parse_args()
 
 env = args.env if args.env is not None else 'local'
-config(env)
+init(env)
+
 
 if __name__ == '__main__':
     scheduler = BlockingScheduler()

@@ -1,5 +1,5 @@
 import requests
-from app.util.log import log
+import logging
 
 
 class requests_help(object):
@@ -19,7 +19,8 @@ class requests_help(object):
             body = _result.text
             self._request = _result.request
         except Exception as e:
-            log().warning('请求失败' + e)
+            # logging.warning('请求失败' + str(e))
+            pass
 
         return body
 
