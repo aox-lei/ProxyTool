@@ -20,13 +20,13 @@ class init(object):
 
     def _init_logging(self):
         logger = logging.getLogger()
-        filename = 'log/info-%s.log' % (datetime.now().strftime('%Y-%m-%d'))
-
-        file_handle = logging.FileHandler(filename, mode='a')
+        # filename = 'log/info-%s.log' % (datetime.now().strftime('%Y-%m-%d'))
+        #
+        # file_handle = logging.FileHandler(filename, mode='a')
         format_handle = logging.Formatter('%(asctime)s %(filename)s[line:%(lineno)d](FunctionName:%(funcName)s) %(levelname)s %(message)s')
-        file_handle.setFormatter(format_handle)
-        logger.setLevel(logging.INFO)
-        logger.addHandler(file_handle)
+        # file_handle.setFormatter(format_handle)
+        # logger.setLevel(logging.INFO)
+        # logger.addHandler(file_handle)
 
         if config().debug == 1:
             console_handle = logging.StreamHandler()
