@@ -1,5 +1,4 @@
 import requests
-import logging
 
 
 class requests_help(object):
@@ -18,8 +17,7 @@ class requests_help(object):
             _result = requests.get(url, timeout=timeout, headers=self._headers, proxies=self._proxy)
             body = _result.text
             self._request = _result.request
-        except Exception as e:
-            # logging.warning('请求失败' + str(e))
+        except:
             pass
 
         return body
