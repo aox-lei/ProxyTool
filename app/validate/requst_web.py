@@ -1,7 +1,6 @@
 # -*- coding:utf-8 -*-
 import time
 import math
-import logging
 from app.validate.base import base
 from app.util.requests_help import requests_help
 
