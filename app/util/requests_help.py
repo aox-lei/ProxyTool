@@ -1,5 +1,5 @@
+# -*- coding:utf-8 -*-
 import requests
-import logging
 
 
 class requests_help(object):
@@ -19,7 +19,6 @@ class requests_help(object):
             body = _result.text
             self._request = _result.request
         except Exception as e:
-            # logging.warning('请求失败' + str(e))
             pass
 
         return body

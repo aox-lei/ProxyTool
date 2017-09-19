@@ -1,6 +1,6 @@
+# -*- coding:utf-8 -*-
 import time
 import math
-import logging
 from app.validate.base import base
 from app.util.requests_help import requests_help
 
@@ -15,7 +15,5 @@ class request_web(base):
         if len(_result) > 0:
             speed = math.ceil(time.time() - float(_request_handle.getRequestHeader('current_time')))
             self.updateIpInfo(ip, is_success=1, speed=speed)
-            # logging.info(ip + ' 验证通过')
         else:
             self.updateIpInfo(ip, is_success=0)
-            # logging.info(ip + ' 验证失败')
