@@ -1,12 +1,12 @@
 import time
 import math
+import logging
 from app.validate.base import base
 from app.util.requests_help import requests_help
-from app.util.log import log
 
 
 class request_web(base):
-    _url = 'http://www.qq.com'
+    _url = 'https://www.baidu.com'
 
     def run(self, http_type, ip, port):
         _request_handle = requests_help()
@@ -15,7 +15,7 @@ class request_web(base):
         if len(_result) > 0:
             speed = math.ceil(time.time() - float(_request_handle.getRequestHeader('current_time')))
             self.updateIpInfo(ip, is_success=1, speed=speed)
-            log().info(ip + ' 验证通过')
+            # logging.info(ip + ' 验证通过')
         else:
             self.updateIpInfo(ip, is_success=0)
-            log().info(ip + ' 验证失败')
+            # logging.info(ip + ' 验证失败')

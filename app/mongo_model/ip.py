@@ -1,16 +1,16 @@
 # -*- coding:utf-8 -*-
+import logging
 from pymongo import ASCENDING, DESCENDING
 from app.mongo_model.base import base
-from app.mongo_model import db
+from app.util.init import init
 from app.util.function import now
-from app.util.log import log
 
 
 class ip(base):
     __collection__ = 'ip'
 
     def __init__(self):
-        self.collection = db[self.__collection__]
+        self.collection = init().db[self.__collection__]
 
     def add(self, data):
         '''
@@ -26,7 +26,7 @@ class ip(base):
         try:
             self.collection.insert_one(data)
         except Exception as e:
-            log().warning('添加数据失败:' + e)
+            logging.warning('添加数据失败:' + e)
 
     def addMany(self, data):
         '''
@@ -35,7 +35,7 @@ class ip(base):
         try:
             self.collection.insert_many(data)
         except Exception as e:
-            log().warning('批量添加数据失败:' + e)
+            logging.warning('批量添加数据失败:' + e)
 
     def listByIp(self, ip_list):
         ''' 根据ip查询是否存在 '''
@@ -44,7 +44,7 @@ class ip(base):
             cursor = self.collection.find({'ip': {'$in': ip_list}}, {'ip': 1})
             data = [_cursor.get('ip') for _cursor in cursor]
         except Exception as e:
-            log().warning('根据ipList查询数据失败:' + e)
+            logging.warning('根据ipList查询数据失败:' + e)
 
         return data
 
@@ -55,7 +55,7 @@ class ip(base):
             cursor = self.collection.find().sort('validate_time', ASCENDING).limit(limit)
             data = [_cursor for _cursor in cursor]
         except Exception as e:
-            log().warning('查看数据失败:' + e)
+            logger.warning('查看数据失败:' + e)
         return data
 
     def listsValid(self, limit):
@@ -69,7 +69,7 @@ class ip(base):
             cursor = self.collection.find(_where, _field).sort('validate_time', DESCENDING).sort('speed', ASCENDING).limit(limit)
             data = [_cursor for _cursor in cursor]
         except Exception as e:
-            log().warning('查看数据失败:' + e)
+            logging.warning('查看数据失败:' + e)
         return data
 
     def info(self, ip):
@@ -78,7 +78,7 @@ class ip(base):
         try:
             info = self.collection.find_one({'ip': ip}, {'ip': 1, 'port': 1, 'type': 1, 'is_anonymous': 1, 'validate_count': 1})
         except Exception as e:
-            log().warning('查看数据失败:' + e)
+            logging.warning('查看数据失败:' + e)
         return info
 
     def updateValidateCount(self, ip, validate_count, speed=0):
@@ -92,7 +92,7 @@ class ip(base):
                     'validate_time': now()
                 }})
         except Exception as e:
-            log().warning('更新数据失败:' + e)
+            logging.warning('更新数据失败:' + e)
 
         return result
 
@@ -101,6 +101,6 @@ class ip(base):
         try:
             result = self.collection.delete_one({'ip': ip})
         except Exception as e:
-            log().warning('更新数据失败:' + e)
+            logging.warning('更新数据失败:' + e)
 
         return result
