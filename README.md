@@ -1,5 +1,5 @@
 # ProxyTool
-python3搭建的代理池功能, 每10分钟自动抓取ip66、ip181、xici代理的脚本, 保存到mongo中, 并且提供web接口, 方便搭建调用
+python3搭建的代理池功能, 免费获取代理ip 每10分钟自动抓取ip66、ip181、xici代理的脚本, 保存到mongo中, 并且提供web接口, 方便搭建调用
 环境: python3.6.2
 ## 一、安装方法
 ```
