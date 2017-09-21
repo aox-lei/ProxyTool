@@ -1,8 +1,6 @@
-# -*- coding:utf-8-*-
+# -*- coding:utf-8 -*-
 import argparse
-
 from multiprocessing import Process
-from apscheduler.schedulers.blocking import BlockingScheduler
 from app.script.crawl import crawl
 from app.script.validate import validate
 from app.script import web
@@ -18,14 +16,13 @@ init(env)
 
 
 if __name__ == '__main__':
-    scheduler = BlockingScheduler()
-    scheduler.add_job(crawl().run, 'interval', minutes=5)
-
     _process = []
+    _process.append(Process(target=crawl().run))
     _process.append(Process(target=validate().run))
     _process.append(Process(target=web.run))
 
     for _p in _process:
         _p.start()
 
-    scheduler.start()
+    for _p in _process:
+        _p.join()
