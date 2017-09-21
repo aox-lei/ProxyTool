@@ -1,6 +1,5 @@
 # -*- coding:utf-8 -*-
 import argparse
-
 from multiprocessing import Process
 from app.script.crawl import crawl
 from app.script.validate import validate
@@ -24,3 +23,6 @@ if __name__ == '__main__':
 
     for _p in _process:
         _p.start()
+
+    for _p in _process:
+        _p.join()
