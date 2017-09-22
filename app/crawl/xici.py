@@ -1,3 +1,4 @@
+# -*- coding:utf-8 -*-
 from bs4 import BeautifulSoup
 from app.util.function import now
 from app.crawl.base import base

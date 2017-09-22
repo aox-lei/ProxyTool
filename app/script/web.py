@@ -14,7 +14,6 @@ def index():
 @app.route('/get/<int:num>')
 def get(num):
     lists = ip().listsValid(num)
-    print(lists)
     return json.dumps(lists)
 
 

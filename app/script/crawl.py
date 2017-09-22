@@ -19,4 +19,6 @@ class crawl(object):
 
         for _p in _process:
             _p.start()
+
+        for _p in _process:
             _p.join()

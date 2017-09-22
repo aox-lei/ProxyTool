@@ -18,4 +18,7 @@ class validate(object):
             for t in _threads:
                 t.start()
 
+            for t in _threads:
+                t.join()
+
             time.sleep(10)
