@@ -1,3 +1,4 @@
+# -*- coding:utf-8 -*-
 import json
 from flask import Flask
 from app.mongo_model.ip import ip

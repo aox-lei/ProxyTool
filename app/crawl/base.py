@@ -1,3 +1,4 @@
+# -*- coding:utf-8 -*-
 import time
 from app.mongo_model.ip import ip
 from app.util.requests_help import requests_help

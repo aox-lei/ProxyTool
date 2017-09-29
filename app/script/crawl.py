@@ -1,4 +1,5 @@
-from multiprocessing import Process
+# -*- coding:utf-8 -*-
+import threading
 from apscheduler.schedulers.blocking import BlockingScheduler
 from app.util.config import config
 
@@ -11,14 +12,14 @@ class crawl(object):
 
     def _run(self):
         web_site = config().crawl_web_site
-        _process = []
+        _thread = []
         for _site in web_site:
             _module = __import__('app.crawl.' + _site, fromlist=(_site))
             _class = getattr(_module, _site)
-            _process.append(Process(target=_class().run))
+            _thread.append(threading.Thread(target=_class().run))
 
-        for _p in _process:
+        for _p in _thread:
             _p.start()
 
-        for _p in _process:
+        for _p in _thread:
             _p.join()

@@ -1,3 +1,4 @@
+# -*- coding:utf-8 -*-
 from app.mongo_model.ip import ip as ipMongo
 
 
