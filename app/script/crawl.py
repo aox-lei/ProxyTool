@@ -6,6 +6,7 @@ from app.util.config import config
 
 class crawl(object):
     def run(self):
+        self._run()
         scheduler = BlockingScheduler()
         scheduler.add_job(self._run, 'interval', minutes=10)
         scheduler.start()
@@ -20,6 +21,3 @@ class crawl(object):
 
         for _p in _thread:
             _p.start()
-
-        for _p in _thread:
-            _p.join()

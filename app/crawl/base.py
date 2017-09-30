@@ -5,18 +5,21 @@ from app.util.requests_help import requests_help
 
 
 class base(object):
+    ''' 抓取基类 '''
+    max_page = 0
+
     def __init__(self):
         pass
 
     def _save(self, data):
         ''' 保存数据到mongo '''
-        ip_list = [value.get('ip')for index, value in enumerate(data)]
+        ip_list = [value.get('ip')for value in data]
         ip_list = ip().listByIp(ip_list)
 
-        if len(ip_list) > 0:
+        if ip_list:
             data = [_data for _index, _data in enumerate(data) if _data.get('ip') not in ip_list]
 
-        if len(data) > 0:
+        if data:
             ip().addMany(data)
 
     def _crawl_single(self, url):
@@ -26,6 +29,9 @@ class base(object):
             _data = self._parse_html(_body)
 
         self._save(_data)
+
+    def _parse_html(self, body):
+        pass
 
     def _crawl_page(self, url):
         ''' 分页抓取 '''
