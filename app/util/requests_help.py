@@ -18,10 +18,10 @@ class requests_help(object):
             _result = requests.get(url, timeout=timeout, headers=self._headers, proxies=self._proxy)
             body = _result.text
             self._request = _result.request
-        except Exception as e:
-            pass
 
-        return body
+            return body
+        except:
+            return False
 
     def setHeader(self, key, value):
         self._headers[key] = value
