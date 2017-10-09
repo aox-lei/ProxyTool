@@ -11,7 +11,7 @@ class validate(object):
 
             _threads = []
             for _i in _lists:
-                _http_type = 'http' if _i.get('type') == 'ALL' else _i.get('type')
+                _http_type = 'http' if _i.get('type') == 'ALL' else _i.get('type').lower()
                 _t = threading.Thread(target=request_web().run, args=(_http_type, _i.get('ip'), _i.get('port')))
                 _threads.append(_t)
 

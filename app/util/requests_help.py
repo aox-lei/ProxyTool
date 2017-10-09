@@ -27,9 +27,9 @@ class requests_help(object):
         self._headers[key] = value
         return self
 
-    def setProxy(self, http_type, ip, port):
+    def setProxy(self, req_http_type, http_type, ip, port):
         self._proxy = {
-            http_type: '%s://%s:%s' % (http_type, ip, port)
+            req_http_type: '%s://%s:%s' % (http_type, ip, port)
         }
 
         return self
