@@ -13,7 +13,10 @@ class request_web(base):
         _result = _request_handle.setProxy('http', http_type, ip, port).setHeader('current_time', str(time.time())).get(self._url, timeout=10)
 
         if _result:
-            speed = math.ceil(time.time() - float(_request_handle.getRequestHeader('current_time')))
-            self.updateIpInfo(ip, is_success=1, speed=speed)
+            try:
+                speed = math.ceil(time.time() - float(_request_handle.getRequestHeader('current_time')))
+                self.updateIpInfo(ip, is_success=1, speed=speed)
+            except:
+                pass
         else:
             self.updateIpInfo(ip, is_success=0)
