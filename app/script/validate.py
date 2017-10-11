@@ -7,7 +7,7 @@ from app.validate.requst_web import request_web
 class validate(object):
     def run(self):
         while(True):
-            _lists = ip().lists(100)
+            _lists = ip().lists(10)
 
             _threads = []
             for _i in _lists:

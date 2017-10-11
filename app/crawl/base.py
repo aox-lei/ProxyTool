@@ -25,6 +25,7 @@ class base(object):
     def _crawl_single(self, url):
         ''' 抓取单个页面'''
         _body = requests_help().get(url)
+
         if _body:
             _data = self._parse_html(_body)
 
