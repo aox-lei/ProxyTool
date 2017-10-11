@@ -8,6 +8,7 @@ class requests_help(object):
     }
     _proxy = {}
     _meta = {}
+    _request = None
 
     def __init__(self):
         pass
@@ -35,7 +36,7 @@ class requests_help(object):
         return self
 
     def getRequestHeader(self, key):
-        if hasattr(self, '_request'):
+        if self._request is not None:
             try:
                 return self._request.headers.get(key)
             except:
