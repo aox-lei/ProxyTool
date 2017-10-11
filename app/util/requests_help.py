@@ -36,6 +36,9 @@ class requests_help(object):
 
     def getRequestHeader(self, key):
         if hasattr(self, '_request'):
-            return self._request.headers.get(key)
+            try:
+                return self._request.headers.get(key)
+            except:
+                return None
         else:
             return None
