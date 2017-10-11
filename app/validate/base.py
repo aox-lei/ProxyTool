@@ -12,8 +12,9 @@ class base(object):
             validate_count = int(info.get('validate_count')) + 1 if int(info.get('validate_count')) < 5 else 5
             ipMongo().updateValidateCount(ip, validate_count, speed)
         else:
-            if info is not None and int(info.get('validate_count')) <= -4:
+            validate_count = 0 if info is None and 'validate_count' not in info else int(info.get('validate_count'))
+            if validate_count <= -4:
                 ipMongo().delete(ip)
             else:
-                validate_count = int(info.get('validate_count')) - 1 if int(info.get('validate_count')) > -5 else -5
+                validate_count = validate_count - 1 if validate_count > -5 else -5
                 ipMongo().updateValidateCount(ip, validate_count, speed)
