@@ -7,6 +7,9 @@ from app.util.requests_help import requests_help
 class base(object):
     ''' 抓取基类 '''
     max_page = 0
+    black_list = [
+        '218.4.101.130',
+    ]
 
     def __init__(self):
         pass
@@ -17,7 +20,7 @@ class base(object):
         ip_list = ip().listByIp(ip_list)
 
         if ip_list:
-            data = [_data for _index, _data in enumerate(data) if _data.get('ip') not in ip_list]
+            data = [_data for _data in data if _data.get('ip') not in ip_list and _data.get('ip') not in self.black_list]
 
         if data:
             ip().addMany(data)

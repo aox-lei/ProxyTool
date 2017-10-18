@@ -30,7 +30,7 @@ class requests_help(object):
 
     def setProxy(self, req_http_type, http_type, ip, port):
         self._proxy = {
-            req_http_type: '%s://%s:%s' % (http_type, ip, port)
+            req_http_type: '%s://%s:%s' % (http_type, ip, port),
         }
 
         return self
