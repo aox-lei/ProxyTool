@@ -13,11 +13,10 @@ class requests_help(object):
     def __init__(self):
         pass
 
-    def get(self, url, timeout=30):
-        body = ''
+    def get(self, url, timeout=30, charset='utf-8'):
         try:
             _result = requests.get(url, timeout=timeout, headers=self._headers, proxies=self._proxy)
-            body = _result.text
+            body = _result.content.decode(charset)
             self._request = _result.request
 
             return body
