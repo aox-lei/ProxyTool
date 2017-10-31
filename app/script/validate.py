@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
 import threading
 from app.mongo_model.ip import ip
-from app.validate.requst_web import request_web
+from app.validate.request_web import request_web
 
 
 class validate(object):
