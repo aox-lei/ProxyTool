@@ -290,12 +290,12 @@ class Server(Connection):
         self.addr = (host, int(port))
 
     def connect(self):
-        self.conn = socks.socksocket(socket.AF_INET, socket.SOCK_STREAM)
-        self.conn.set_proxy(socks.HTTP, "118.114.77.47", 8080)
         # self.conn = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        # self.conn.connect((self.addr[0], self.addr[1]))
 
-        self.conn.connect((str(self.addr[0]), self.addr[1]))
-        # self.conn.connect(('www.baidu.com', 80))
+        self.conn = socks.socksocket()
+        self.conn.set_proxy(socks.HTTP, '124.238.97.154', 8080)
+        self.conn.connect((str(self.addr[0], encoding='utf-8'), self.addr[1]))
 
 class Client(Connection):
     """Accepted client connection."""
